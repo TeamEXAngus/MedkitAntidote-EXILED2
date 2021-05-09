@@ -1,0 +1,40 @@
+medkit_antidote:
+  # Whether or not the plugin is enabled on this server.
+  is_enabled: true
+  # Whether or not the plugin should send debug messages in console.
+  debug_enabled: false
+  # List of status effects which medkits should remove from the player.
+  medkit_effects_to_remove:
+  - Poisoned
+  - Bleeding
+  # List of status effects which pills should remove from the player.
+  pills_effects_to_remove:
+  - Concussed
+  # List of status effects which adrenaline should remove from the player.
+  adrenaline_effects_to_remove:
+  - Panic
+  - Disabled
+  - Exhausted
+
+# A list of all status effects:
+#        Amnesia
+#        Asphyxiated
+#        Bleeding
+#        Blinded 
+#        Burned
+#        Concussed
+#        Corroding
+#        Deafened
+#        Decontaminating
+#        Disabled
+#        Ensnared
+#        Exhausted
+#        Flashed
+#        Hemorrhage
+#        Invigorated
+#        Panic
+#        Poisoned
+#        Scp207
+#        Scp268
+#        SinkHole
+#        Visuals939
