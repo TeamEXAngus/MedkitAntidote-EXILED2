@@ -5,9 +5,8 @@ using Exiled.API.Features;
 
 namespace MedkitAntidote.Handlers
 {
-    class Player
+    internal class Player
     {
-
         public void OnMedicalItemUsed(UsedMedicalItemEventArgs ev)
         {
             //Debug message
@@ -16,7 +15,8 @@ namespace MedkitAntidote.Handlers
             //Store the appropriate list from the config file to a temporary variable
             List<string> effectList = new List<string> { };
             switch (ev.Item)
-            {   case ItemType.Medkit:
+            {
+                case ItemType.Medkit:
                     effectList = MedkitAntidote.Instance.Config.MedkitEffectsToRemove;
                     break;
 
@@ -30,23 +30,24 @@ namespace MedkitAntidote.Handlers
             }
 
             //Loop through the list from the config file and remove chosen effects from a player after they've used a medical item
-            foreach (string effectName in effectList)
+            if (effectList.Count > 0)
             {
-                //Debug message
-                if (MedkitAntidote.Instance.Config.DebugEnabled) { Log.Debug($"Trying to remove {effectName} from {ev.Player.Nickname}."); }
-
-                //Actually removes the effect (if it is a valid effect)
-                if (EffectType.TryParse(effectName, true, out EffectType thisEffect))
+                foreach (string effectName in effectList)
                 {
-                    ev.Player.DisableEffect(thisEffect);
+                    //Debug message
+                    if (MedkitAntidote.Instance.Config.DebugEnabled) { Log.Debug($"Trying to remove {effectName} from {ev.Player.Nickname}."); }
 
-                } else //Complain if chosen effect is not valid
-                {
-                    Log.Warn($"Tried to remove {effectName} from {ev.Player.Nickname}; {effectName} is not a valid effect name!");
+                    //Actually removes the effect (if it is a valid effect)
+                    if (EffectType.TryParse(effectName, true, out EffectType thisEffect))
+                    {
+                        ev.Player.DisableEffect(thisEffect);
+                    }
+                    else //Complain if chosen effect is not valid
+                    {
+                        Log.Warn($"Tried to remove {effectName} from {ev.Player.Nickname}; {effectName} is not a valid effect name!");
+                    }
                 }
             }
-
         }
-
     }
 }
