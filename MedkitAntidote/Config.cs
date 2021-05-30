@@ -1,6 +1,7 @@
 ﻿using System.ComponentModel;
 using System.Collections.Generic;
 using Exiled.API.Interfaces;
+using Exiled.API.Enums;
 
 namespace MedkitAntidote
 {
@@ -13,13 +14,12 @@ namespace MedkitAntidote
         public bool DebugEnabled { get; set; } = false;
 
         [Description("List of status effects which medkits should remove from the player.")]
-        public List<string> MedkitEffectsToRemove { get; set; } = new List<string> { "Poisoned" };
+        public List<EffectType> MedkitEffectsToRemove { get; set; } = new List<EffectType> { EffectType.Poisoned };
 
         [Description("List of status effects which pills should remove from the player.")]
-        public List<string> PillsEffectsToRemove { get; set; } = new List<string> { "Concussed" };
+        public List<EffectType> PillsEffectsToRemove { get; set; } = new List<EffectType> { EffectType.Concussed };
 
         [Description("List of status effects which adrenaline should remove from the player.")]
-        public List<string> AdrenalineEffectsToRemove { get; set; } = new List<string> { "Panic" };
-
+        public List<EffectType> AdrenalineEffectsToRemove { get; set; } = new List<EffectType> { EffectType.Panic };
     }
 }

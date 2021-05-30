@@ -13,7 +13,7 @@ namespace MedkitAntidote.Handlers
             if (MedkitAntidote.Instance.Config.DebugEnabled) { Log.Debug($"{ev.Player.Nickname} used an {ev.Item}."); }
 
             //Store the appropriate list from the config file to a temporary variable
-            List<string> effectList = new List<string> { };
+            List<EffectType> effectList = new List<EffectType> { };
             switch (ev.Item)
             {
                 case ItemType.Medkit:
@@ -32,20 +32,12 @@ namespace MedkitAntidote.Handlers
             //Loop through the list from the config file and remove chosen effects from a player after they've used a medical item
             if (effectList.Count > 0)
             {
-                foreach (string effectName in effectList)
+                foreach (EffectType effectName in effectList)
                 {
                     //Debug message
                     if (MedkitAntidote.Instance.Config.DebugEnabled) { Log.Debug($"Trying to remove {effectName} from {ev.Player.Nickname}."); }
 
-                    //Actually removes the effect (if it is a valid effect)
-                    if (EffectType.TryParse(effectName, true, out EffectType thisEffect))
-                    {
-                        ev.Player.DisableEffect(thisEffect);
-                    }
-                    else //Complain if chosen effect is not valid
-                    {
-                        Log.Warn($"Tried to remove {effectName} from {ev.Player.Nickname}; {effectName} is not a valid effect name!");
-                    }
+                    ev.Player.DisableEffect(effectName);
                 }
             }
         }
